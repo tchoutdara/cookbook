@@ -1,12 +1,17 @@
 class Api::RecipesController < ApplicationController
-  bfore_action :set_recipe, only: [:show, :update, :destroy]
+  before_action :set_recipe, only: [:show, :update, :destroy]
 
   def index
     render json: Recipe.all
   end
 
   def show
-    render json: @recipe
+    render json: {
+      id: @recipe.id,
+      name: @recipe.name,
+      description: @recipe.description,
+      ingredients: @recipe.recipe_ingredients
+    }
   end
 
   def create
@@ -23,7 +28,7 @@ class Api::RecipesController < ApplicationController
     if @recipe.update(recipe_params)
       render json: @recipe
     else
-      render_error(recipe)
+      render_error(@recipe)
     end
   end
 

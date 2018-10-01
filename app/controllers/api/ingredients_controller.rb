@@ -24,6 +24,7 @@ class Api::IngredientsController < ApplicationController
       render json: @ingredient
     else
       render_error(@ingredient)
+    end
   end
 
   private
